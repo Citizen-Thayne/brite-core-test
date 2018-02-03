@@ -27,6 +27,7 @@ SECRET_KEY = 'n3@wsgyxr)65$+s%z=b7#@8460%t_t0&s*elevyu%h5w_0i9@@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+CORS_ORIGIN_ALLOW_ALL = DEBUG
 
 ALLOWED_HOSTS = []
 
@@ -42,16 +43,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app',
     'django_nose',
-    'rest_framework'
+    'rest_framework',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    # 'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -136,13 +137,19 @@ STATIC_URL = '/staticfiles/'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Tell nose to measure coverage on the 'foo' and 'bar' apps
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=foo,bar',
-]
+# NOSE_ARGS = [
+#     '--with-coverage',
+# ]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
-    ]
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
 }
