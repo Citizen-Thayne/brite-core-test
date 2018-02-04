@@ -14,6 +14,6 @@ echo 'Collect static'
 python manage.py collectstatic --noinput
 echo 'Done...'
 
-export PORT=8000
-echo 'Server runnning on port ' $PORT
-python manage.py runserver
+
+echo 'Deploying to AWS '
+zappa deploy production
