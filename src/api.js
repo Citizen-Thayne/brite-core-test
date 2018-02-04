@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = '/api/risktypes/'
+const BASE_URL = '/production/api/risktypes/'
 
 export default {
 

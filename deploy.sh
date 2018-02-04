@@ -14,6 +14,5 @@ echo 'Collect static'
 python manage.py collectstatic --noinput
 echo 'Done...'
 
-
 echo 'Deploying to AWS '
-zappa deploy production
+zappa update production

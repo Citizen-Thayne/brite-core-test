@@ -1,7 +1,7 @@
 {
     "production": {
         "aws_region": "us-east-1",
-        "django_settings": "vuedj.settings",
+        "django_settings": "vuedj.settings_prod",
         "profile_name": null,
         "project_name": "brite-core",
         "runtime": "python3.6",
