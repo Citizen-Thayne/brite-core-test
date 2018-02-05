@@ -14,5 +14,10 @@ echo 'Collect static'
 python manage.py collectstatic --noinput
 echo 'Done...'
 
-echo 'Deploying to AWS '
-zappa update production
+if [ "$1" == "update" ]; then
+  echo 'Updating to AWS '
+  zappa update production
+else
+  echo 'Deploying to AWS '
+  zappa deploy production
+fi
