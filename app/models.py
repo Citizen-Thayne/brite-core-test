@@ -25,7 +25,7 @@ class SubclassingQuerySet(QuerySet):
             yield item.as_leaf_class()
 
 
-class RisTypeFieldManager(models.Manager):
+class RiskTypeFieldManager(models.Manager):
     def get_query_set(self):
         return SubclassingQuerySet(self.model)
 
@@ -35,7 +35,7 @@ class AbstractRiskFieldType(models.Model):
     content_type = models.ForeignKey(ContentType, editable=False, null=True, on_delete=models.DO_NOTHING)
     risk_type = models.ForeignKey(
         RiskType, on_delete=models.CASCADE, related_name='fields')
-    objects = RisTypeFieldManager()
+    objects = RiskTypeFieldManager()
 
 
     def save(self, *args, **kwargs):
@@ -55,7 +55,7 @@ class AbstractRiskFieldType(models.Model):
 class TextRiskField(AbstractRiskFieldType):
     min_length = models.IntegerField(null=True)
     max_length = models.IntegerField(null=True)
-    objects = RisTypeFieldManager()
+    objects = RiskTypeFieldManager()
 
     def validate(self, value):
         if self.minLength is not None and self.minLength > len(value):
@@ -69,7 +69,7 @@ class TextRiskField(AbstractRiskFieldType):
 class NumberRiskField(AbstractRiskFieldType):
     min_value = models.FloatField(null=True)
     max_value = models.FloatField(null=True)
-    objects = RisTypeFieldManager()
+    objects = RiskTypeFieldManager()
 
     def validate(self, value):
         if self.minLength is not None and self.minLength > value:
@@ -82,7 +82,7 @@ class NumberRiskField(AbstractRiskFieldType):
 
 class EnumRiskField(AbstractRiskFieldType):
     values = models.TextField()
-    objects = RisTypeFieldManager()
+    objects = RiskTypeFieldManager()
 
     def validate(self, value):
         values = self.values.split(',')
@@ -92,7 +92,7 @@ class EnumRiskField(AbstractRiskFieldType):
 class DateRiskField(AbstractRiskFieldType):
     min_date = models.DateField(null=True)
     max_date = models.DateField(null=True)
-    objects = RisTypeFieldManager()
+    objects = RiskTypeFieldManager()
 
     def validate(self, value):
         if self.minDate is not None and self.minDate > value:
